@@ -1,4 +1,4 @@
-name: Train Model on Push
+name: SalesForecasting
 
 entry_points:
   main:
