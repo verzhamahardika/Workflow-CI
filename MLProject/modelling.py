@@ -14,6 +14,13 @@ args = parser.parse_args()
 
 
 
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--test_size", type=float, default=0.2)
+parser.add_argument("--random_state", type=int, default=42)
+args = parser.parse_args()
+
 # Aktifkan autolog
 mlflow.sklearn.autolog()
 
