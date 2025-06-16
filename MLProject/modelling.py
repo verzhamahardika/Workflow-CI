@@ -4,6 +4,15 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error,mean_absolute_error, r2_score
 import mlflow
 import mlflow.sklearn
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--test_size", type=float, default=0.2)
+parser.add_argument("--random_state", type=int, default=42)
+args = parser.parse_args()
+
+
+
 
 # Aktifkan autolog
 mlflow.sklearn.autolog()
@@ -16,7 +25,9 @@ X = data.drop(columns=["Units Sold"])
 y = data["Units Sold"]
 
 # Split data
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=args.test_size, random_state=args.random_state
+)
 
 # Inisialisasi experiment MLflow
 mlflow.set_experiment("Sales Forecasting")
