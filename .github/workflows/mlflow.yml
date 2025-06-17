@@ -28,3 +28,10 @@ jobs:
         run: |
           cd MLProject
           mlflow run . --env-manager=local
+
+      - name: Upload Model Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: trained-model
+          path: MLProject/mlruns
+
