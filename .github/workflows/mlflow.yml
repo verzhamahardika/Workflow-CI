@@ -36,10 +36,10 @@ jobs:
           echo "Latest run ID: $RUN_ID"
           echo "RUN_ID=$RUN_ID" >> $GITHUB_ENV
 
-      - name: Download model artifact
+      - name: Copy model artifact manually
         run: |
-          mlflow artifacts download --run-id $RUN_ID --artifact-path model -d ./downloaded
-          mv ./downloaded/model ./best_model
+          cp -r MLProject/mlruns/0/$RUN_ID/artifacts/model ./best_model
+
 
       - name: Build Docker Image
         run: |
