@@ -1,4 +1,4 @@
-name: SalesForecasting
+name: sales_forecasting_project
 
 entry_points:
   main:
