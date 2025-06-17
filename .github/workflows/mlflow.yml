@@ -1,35 +1,30 @@
-name: Train Model
+name: SalesForecasting
 
 on:
   push:
     branches:
-      - main  # Ganti sesuai nama branch-mu
+      - main  
 
 jobs:
-  train:
+  train-model:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout Repo
         uses: actions/checkout@v3
 
-      - name: Setup Miniconda
+      - name: Set up Conda
         uses: conda-incubator/setup-miniconda@v2
         with:
-          activate-environment: sales_env
+          activate-environment: sales_forecasting_env
           environment-file: MLProject/conda.yaml
           auto-activate-base: false
 
-      - name: Install dependencies
+      - name: Install MLflow
         run: |
-          pip install -r MLProject/requirements.txt
-          pip install mlflow
+          pip install mlflow dagshub
 
-      - name: Run MLflow project
+      - name: Run MLflow Project
         run: |
           cd MLProject
           mlflow run . --env-manager=local
-
-      - name: Push Docker Image
-        run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/sales-forecasting:latest
