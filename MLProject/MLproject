@@ -7,4 +7,4 @@ entry_points:
     parameters:
       data_path: {type: str, default: "Supplement-Sales-Weekly-Expanded_preprocessing.csv"}
     command: >
-      python modelling.py --data_path {data_path}
+      python modelling.py --data_path={data_path}
