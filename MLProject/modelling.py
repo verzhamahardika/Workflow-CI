@@ -12,7 +12,7 @@ parser.add_argument("--test_size", type=float, default=0.2)
 parser.add_argument("--random_state", type=int, default=42)
 args = parser.parse_args()
 
-# Logging parameter
+# Logging parameterer
 mlflow.log_param("test_size", args.test_size)
 mlflow.log_param("random_state", args.random_state)
 
