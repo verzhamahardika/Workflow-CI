@@ -6,20 +6,16 @@ from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 import mlflow
 import mlflow.sklearn
 
-# Parameter dari CLI
+# Ambil parameter dari CLI
 parser = argparse.ArgumentParser()
 parser.add_argument("--test_size", type=float, default=0.2)
 parser.add_argument("--random_state", type=int, default=42)
 args = parser.parse_args()
 
-# Autolog
+# Autolog semua aktivitas ML (model, metrics, params, artifacts)
 mlflow.sklearn.autolog()
 
-# Logging parameter manual (opsional, karena autolog sudah lakukan)
-mlflow.log_param("test_size", args.test_size)
-mlflow.log_param("random_state", args.random_state)
-
-# Load data
+# Load dataset
 data = pd.read_csv("Supplement-Sales-Weekly-Expanded_preprocessing.csv")
 X = data.drop(columns=["Units Sold"])
 y = data["Units Sold"]
@@ -39,11 +35,11 @@ mse = mean_squared_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
 mae = mean_absolute_error(y_test, y_pred)
 
-# Logging metric manual (opsional)
+# Logging metrics tambahan (boleh dilog manual juga)
 mlflow.log_metric("test_mse", mse)
 mlflow.log_metric("test_r2_score", r2)
 mlflow.log_metric("test_mae", mae)
 
-# Output
+# Print output
 print(f"MSE: {mse}")
 print(f"R² Score: {r2}")
