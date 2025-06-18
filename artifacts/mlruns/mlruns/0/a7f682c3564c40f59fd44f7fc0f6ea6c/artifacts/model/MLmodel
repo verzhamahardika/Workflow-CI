@@ -1,0 +1,32 @@
+artifact_path: model
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.12.3
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.7.0
+is_signature_from_type_hint: false
+mlflow_version: 2.22.0
+model_size_bytes: 23069731
+model_uuid: cf25491e0b3949f8a1c8312cb870f116
+prompts: null
+run_id: a7f682c3564c40f59fd44f7fc0f6ea6c
+signature:
+  inputs: '[{"type": "long", "name": "Product Name", "required": true}, {"type": "long",
+    "name": "Category", "required": true}, {"type": "double", "name": "Price", "required":
+    true}, {"type": "double", "name": "Revenue", "required": true}, {"type": "double",
+    "name": "Discount", "required": true}, {"type": "double", "name": "Units Returned",
+    "required": true}, {"type": "long", "name": "Location", "required": true}, {"type":
+    "long", "name": "Platform", "required": true}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "float64", "shape": [-1]}}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2025-06-18 05:00:45.833967'

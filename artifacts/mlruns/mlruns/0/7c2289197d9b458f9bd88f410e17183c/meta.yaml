@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/0/7c2289197d9b458f9bd88f410e17183c/artifacts
+end_time: 1750222849375
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 7c2289197d9b458f9bd88f410e17183c
+run_name: serious-lynx-524
+run_uuid: 7c2289197d9b458f9bd88f410e17183c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750222849314
+status: 3
+tags: []
+user_id: runner

@@ -86,4 +86,3 @@ jobs:
         run: |
           docker tag sales_forecasting_image ${{ secrets.DOCKERHUB_USERNAME }}/sales_forecasting_image:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/sales_forecasting_image:latest
-
