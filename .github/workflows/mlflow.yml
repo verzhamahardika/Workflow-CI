@@ -34,18 +34,43 @@ jobs:
 
       - name: Copy Artifacts to Folder
         run: |
-           mkdir -p artifacts
-           cp -r MLProject/mlruns ./artifacts/mlruns
+          mkdir -p artifacts
+          cp -r MLProject/mlruns ./artifacts/mlruns
 
       - name: Commit and Push Artifacts
         run: |
-           git config --global user.name 'github-actions'
-           git config --global user.email 'github-actions@github.com'
-           git add artifacts
-           git commit -m "Save MLflow artifacts"
-           git push
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add artifacts
+          git commit -m "Save MLflow artifacts"
+          git push
         env:
-           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  build-and-push-docker:
+    needs: train-model
+    runs-on: ubuntu-latest
 
-      
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install MLflow
+        run: pip install mlflow
+
+      - name: Build Docker Image with MLflow
+        run: |
+          mlflow build-docker -n sales_forecasting_image -f MLProject
+
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+      - name: Tag and Push Image
+        run: |
+          docker tag sales_forecasting_image ${{ secrets.DOCKERHUB_USERNAME }}/sales_forecasting_image:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/sales_forecasting_image:latest
