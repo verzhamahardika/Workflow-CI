@@ -76,7 +76,7 @@ jobs:
       - name: Build Docker Image with MLflow
         run: |
           cd MLProject
-          mlflow build-docker -n sales_forecasting_image -f .
+          docker build -t sales_forecasting_image .
 
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
