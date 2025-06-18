@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/0/2b9bd985a115458b8ecf0188fccf462b/artifacts
+end_time: 1750225872325
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 2b9bd985a115458b8ecf0188fccf462b
+run_name: rebellious-stork-84
+run_uuid: 2b9bd985a115458b8ecf0188fccf462b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750225864107
+status: 3
+tags: []
+user_id: runner
