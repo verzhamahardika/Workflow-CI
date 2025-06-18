@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/0/d4e038c9d6d84105b9029401b726e47e/artifacts
+end_time: 1750224203294
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: d4e038c9d6d84105b9029401b726e47e
+run_name: bedecked-cow-359
+run_uuid: d4e038c9d6d84105b9029401b726e47e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750224203229
+status: 3
+tags: []
+user_id: runner
