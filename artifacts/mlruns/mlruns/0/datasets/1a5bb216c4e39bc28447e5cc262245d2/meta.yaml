@@ -8,5 +8,5 @@ schema: '{"mlflow_colspec": [{"type": "long", "name": "Product Name", "required"
   "name": "Units Returned", "required": true}, {"type": "long", "name": "Location",
   "required": true}, {"type": "long", "name": "Platform", "required": true}]}'
 source: '{"tags": {"mlflow.user": "runner", "mlflow.source.name": "modelling.py",
-  "mlflow.source.type": "LOCAL", "mlflow.source.git.commit": "b0748658a31313563ee48dc93ac3d3b7384d720e"}}'
+  "mlflow.source.type": "LOCAL", "mlflow.source.git.commit": "abd12aa00bafaadd7697b9d61e0560524ba22641"}}'
 source_type: code
