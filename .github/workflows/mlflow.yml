@@ -1,18 +1,19 @@
-name: Train ML model
+name: SalesForecasting
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
-  train:
+  train-model:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout Repo
         uses: actions/checkout@v3
 
-      - name: Set up Miniconda
+      - name: Set up Conda
         uses: conda-incubator/setup-miniconda@v2
         with:
           activate-environment: sales_forecasting_env
@@ -22,7 +23,7 @@ jobs:
       - name: Install MLflow
         run: pip install mlflow
 
-      - name: Run MLflow project
+      - name: Run MLflow Project
         run: |
           cd MLProject
           mlflow run . --env-manager=local

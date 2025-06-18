@@ -5,7 +5,6 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 import mlflow
 import mlflow.sklearn
-import os
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--test_size", type=float, default=0.2)
@@ -14,9 +13,10 @@ args = parser.parse_args()
 
 mlflow.set_experiment("sales_forecasting_experiment")
 
-with mlflow.start_run() as run:
+with mlflow.start_run():
     mlflow.log_param("test_size", args.test_size)
     mlflow.log_param("random_state", args.random_state)
+
     mlflow.sklearn.autolog()
 
     data = pd.read_csv("Supplement-Sales-Weekly-Expanded_preprocessing.csv")
@@ -27,7 +27,7 @@ with mlflow.start_run() as run:
         X, y, test_size=args.test_size, random_state=args.random_state
     )
 
-    model = RandomForestRegressor(random_state=42)
+    model = RandomForestRegressor(random_state=args.random_state)
     model.fit(X_train, y_train)
 
     y_pred = model.predict(X_test)
@@ -37,8 +37,9 @@ with mlflow.start_run() as run:
     mae = mean_absolute_error(y_test, y_pred)
 
     mlflow.log_metric("mse", mse)
-    mlflow.log_metric("r2", r2)
+    mlflow.log_metric("r2_score", r2)
     mlflow.log_metric("mae", mae)
 
-    # Simpan model eksplisit
-    mlflow.sklearn.log_model(model, "model")
+    print(f"MSE: {mse}")
+    print(f"R2 Score: {r2}")
+    print(f"MAE: {mae}")
