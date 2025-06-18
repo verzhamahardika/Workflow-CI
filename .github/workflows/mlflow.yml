@@ -1,12 +1,18 @@
+name: Train ML model
+
+on:
+  push:
+    branches: [main]
+
 jobs:
-  train-model:
+  train:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repo
+      - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Set up Conda
+      - name: Set up Miniconda
         uses: conda-incubator/setup-miniconda@v2
         with:
           activate-environment: sales_forecasting_env
@@ -14,19 +20,9 @@ jobs:
           auto-activate-base: false
 
       - name: Install MLflow
-        run: |
-          pip install mlflow dagshub
+        run: pip install mlflow
 
-      - name: Run MLflow Project
+      - name: Run MLflow project
         run: |
           cd MLProject
           mlflow run . --env-manager=local
-
-      - name: Download latest model artifact
-        run: |
-          cd MLProject
-          python download_model.py
-
-      - name: Build Docker Image from MLflow model
-        run: |
-          mlflow models build-docker --model-uri MLProject/best_model --name sales-forecasting

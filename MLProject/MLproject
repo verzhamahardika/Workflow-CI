@@ -1,4 +1,6 @@
-name: sales_forecasting_project
+name: SalesForecasting
+
+conda_env: conda.yaml
 
 entry_points:
   main:
