@@ -1,0 +1,14 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/0/e174ff0835304e94bbfb0932bff08a3a/artifacts
+end_time: 1750220069716
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: e174ff0835304e94bbfb0932bff08a3a
+run_name: intelligent-bee-969
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750220064121
+status: 3
+tags: []
+user_id: runner

@@ -1,0 +1,14 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/0/08763c6b4c3c42c69b3f047290a92029/artifacts
+end_time: 1750220069472
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 08763c6b4c3c42c69b3f047290a92029
+run_name: adventurous-croc-116
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750220069406
+status: 3
+tags: []
+user_id: runner

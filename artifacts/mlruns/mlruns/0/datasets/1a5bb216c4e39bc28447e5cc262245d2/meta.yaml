@@ -1,0 +1,12 @@
+digest: d84ce4af
+name: dataset
+profile: '{"num_rows": 877, "num_elements": 7016}'
+schema: '{"mlflow_colspec": [{"type": "long", "name": "Product Name", "required":
+  true}, {"type": "long", "name": "Category", "required": true}, {"type": "double",
+  "name": "Price", "required": true}, {"type": "double", "name": "Revenue", "required":
+  true}, {"type": "double", "name": "Discount", "required": true}, {"type": "double",
+  "name": "Units Returned", "required": true}, {"type": "long", "name": "Location",
+  "required": true}, {"type": "long", "name": "Platform", "required": true}]}'
+source: '{"tags": {"mlflow.user": "runner", "mlflow.source.name": "modelling.py",
+  "mlflow.source.type": "LOCAL", "mlflow.source.git.commit": "c7e1cdce9d45d63a5b36c7a9107c8af08183e887"}}'
+source_type: code
