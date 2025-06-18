@@ -23,6 +23,10 @@ jobs:
       - name: Install MLflow
         run: pip install mlflow
 
+      - name: Set Experiment for MLflow
+        run: |
+          python -c "import mlflow; mlflow.set_experiment('SalesForecasting')"
+
       - name: Run MLflow Project
         run: |
           cd MLProject
