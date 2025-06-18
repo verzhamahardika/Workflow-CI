@@ -47,7 +47,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    build-and-push-docker:
+  build-and-push-docker:
     needs: train-model
     runs-on: ubuntu-latest
     permissions:
@@ -71,8 +71,7 @@ jobs:
       - name: Install MLflow with Docker Support
         run: |
           pip install wheel setuptools
-          pip install mlflow[extras]==2.22.0
-          mlflow --help
+          pip install "mlflow[extras]==2.22.0"
 
       - name: Build Docker Image with MLflow
         run: |
