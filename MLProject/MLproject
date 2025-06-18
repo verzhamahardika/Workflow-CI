@@ -1,12 +1,15 @@
-# MLProject  ← simpan TANPA ekstensi
-name: mlflow-salesforecasting
+name: mlflow-salesforecasting        # bebas, tapi konsisten
 
 conda_env: conda.yaml
 
 entry_points:
   main:
     parameters:
-      data_path: {type: str, default: "data_preprocessing/sales-data-preprocessed.csv"}
+      data_path:    {type: str, default: "Supplement-Sales-Weekly-Expanded_preprocessing.csv"}
+      test_size:    {type: float, default: 0.2}
+      random_state: {type: int,   default: 42}
     command: >
-      python modelling.py --data_path={data_path}
-      #            ^-------------^   └── tanda '=' aman dari masalah spasi
+      python modelling.py
+        --data_path={data_path}
+        --test_size={test_size}
+        --random_state={random_state}
