@@ -4,13 +4,23 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'MLProject/**'
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  MLFLOW_EXPERIMENT_NAME: SalesForecasting
+  DOCKER_IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/sales_forecasting_image
 
 jobs:
   train-model:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repo
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
       - name: Set up Conda
@@ -23,39 +33,44 @@ jobs:
       - name: Install MLflow with Extras
         run: pip install "mlflow[extras]==2.22.0"
 
-      - name: Set Experiment for MLflow
-        run: |
-          python -c "import mlflow; mlflow.set_experiment('SalesForecasting')"
-
       - name: Run MLflow Project
         run: |
           cd MLProject
           mlflow run . --env-manager=local
 
-      - name: Copy Artifacts to Folder
+      - name: Get Latest MLflow run_id
         run: |
-          mkdir -p artifacts
-          cp -r MLProject/mlruns ./artifacts/mlruns
+          python <<EOF
+          import mlflow
+          client = mlflow.tracking.MlflowClient()
+          experiment = client.get_experiment_by_name("${{ env.MLFLOW_EXPERIMENT_NAME }}")
+          if experiment is None:
+              raise Exception("Experiment not found.")
+          runs = client.search_runs(experiment.experiment_id, order_by=["start_time DESC"])
+          if not runs:
+              raise Exception("No runs found.")
+          run_id = runs[0].info.run_id
+          print(f"Run ID: {run_id}")
+          with open("${GITHUB_ENV}", "a") as f:
+              f.write(f"RUN_ID={run_id}\n")
+          EOF
 
-      - name: Commit and Push Artifacts
+      - name: Download Model Artifact
         run: |
-          git config --global user.name 'github-actions'
-          git config --global user.email 'github-actions@github.com'
-          git add artifacts
-          git commit -m "Save MLflow artifacts"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          mlflow artifacts download --run-id $RUN_ID --artifact-path model --dst-path MLProject/output
+
+      - name: Upload model artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: trained-model
+          path: MLProject/output/model.pkl
 
   build-and-push-docker:
     needs: train-model
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
 
     steps:
-      - name: Checkout Repo
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
       - name: Set up Python
@@ -63,25 +78,22 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Start Docker Daemon
-        run: |
-          sudo systemctl start docker
-          docker --version
-
       - name: Install MLflow with Docker Support
         run: |
-          pip install wheel setuptools
           pip install "mlflow[extras]==2.22.0"
 
-      - name: Build Docker Image with MLflow
-        run: |
-          cd MLProject
-          docker build -t sales_forecasting_image .
-
       - name: Log in to Docker Hub
-        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Tag and Push Docker Image
+      - name: Build Docker Image via MLflow
         run: |
-          docker tag sales_forecasting_image ${{ secrets.DOCKERHUB_USERNAME }}/sales_forecasting_image:latest
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/sales_forecasting_image:latest
+          mlflow models build-docker \
+            --model-uri "runs:/$RUN_ID/model" \
+            --name ${{ env.DOCKER_IMAGE_NAME }}
+
+      - name: Push Docker Image
+        run: |
+          docker push ${{ env.DOCKER_IMAGE_NAME }}
