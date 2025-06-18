@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/0/a7f682c3564c40f59fd44f7fc0f6ea6c/artifacts
+end_time: 1750222849837
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: a7f682c3564c40f59fd44f7fc0f6ea6c
+run_name: orderly-mare-37
+run_uuid: a7f682c3564c40f59fd44f7fc0f6ea6c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750222841746
+status: 3
+tags: []
+user_id: runner
