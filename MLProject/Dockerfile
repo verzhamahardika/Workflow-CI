@@ -4,7 +4,9 @@ WORKDIR /app
 
 COPY . .
 
-RUN pip install wheel setuptools \
-    && pip install "mlflow[extras]==2.22.0"
+# Upgrade pip dan install mlflow serta perbaiki dependency packaging
+RUN pip install --upgrade pip setuptools wheel \
+    && pip install "mlflow[extras]==2.2.2" \
+    && pip install packaging==23.2  # ✅ Fix error import Version
 
 ENTRYPOINT ["mlflow"]
