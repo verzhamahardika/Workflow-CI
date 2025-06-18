@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/0/cfe2fc9238734f31af095f318ffa006c/artifacts
+end_time: 1750257276617
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: cfe2fc9238734f31af095f318ffa006c
+run_name: angry-cow-917
+run_uuid: cfe2fc9238734f31af095f318ffa006c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750257276558
+status: 3
+tags: []
+user_id: runner

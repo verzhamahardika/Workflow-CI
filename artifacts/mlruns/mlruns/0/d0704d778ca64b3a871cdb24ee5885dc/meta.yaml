@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/0/d0704d778ca64b3a871cdb24ee5885dc/artifacts
+end_time: 1750257277007
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: d0704d778ca64b3a871cdb24ee5885dc
+run_name: upbeat-mouse-688
+run_uuid: d0704d778ca64b3a871cdb24ee5885dc
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750257269207
+status: 3
+tags: []
+user_id: runner
