@@ -33,14 +33,17 @@ with mlflow.start_run(nested=True):
     # Train model
     model = RandomForestRegressor(random_state=42)
     model.fit(X_train, y_train)
-    os.makedirs("model", exist_ok=True)
-    joblib.dump(model, "model/model.pkl")  # Simpan model secara manual
 
-    # Logging secara eksplisit
-    mlflow.log_artifact("model/model.pkl", artifact_path="model")
-
-    # Evaluate
+    
     y_pred = model.predict(X_test)
+    signature = infer_signature(X_test, y_pred)
+
+    mlflow.sklearn.log_model(
+    sk_model=model,
+    artifact_path="model",
+    input_example=X_test.head(3),
+    signature=signature
+    )
     mse = mean_squared_error(y_test, y_pred)
     r2 = r2_score(y_test, y_pred)
     mae = mean_absolute_error(y_test, y_pred)
