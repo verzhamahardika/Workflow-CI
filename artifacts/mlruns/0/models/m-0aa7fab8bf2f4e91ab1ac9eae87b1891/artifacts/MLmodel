@@ -1,0 +1,33 @@
+artifact_path: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/0/models/m-0aa7fab8bf2f4e91ab1ac9eae87b1891/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.12.3
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.7.0
+is_signature_from_type_hint: false
+mlflow_version: 3.1.0
+model_id: m-0aa7fab8bf2f4e91ab1ac9eae87b1891
+model_size_bytes: 23069731
+model_uuid: m-0aa7fab8bf2f4e91ab1ac9eae87b1891
+prompts: null
+run_id: fec93f562c8049c9abef9667fc6ffe73
+signature:
+  inputs: '[{"type": "long", "name": "Product Name", "required": true}, {"type": "long",
+    "name": "Category", "required": true}, {"type": "double", "name": "Price", "required":
+    true}, {"type": "double", "name": "Revenue", "required": true}, {"type": "double",
+    "name": "Discount", "required": true}, {"type": "double", "name": "Units Returned",
+    "required": true}, {"type": "long", "name": "Location", "required": true}, {"type":
+    "long", "name": "Platform", "required": true}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "float64", "shape": [-1]}}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2025-06-18 02:58:55.226898'
