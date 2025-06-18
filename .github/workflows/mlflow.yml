@@ -31,3 +31,21 @@ jobs:
         run: |
           cd MLProject
           mlflow run . --env-manager=local
+
+      - name: Copy Artifacts to Folder
+        run: |
+           mkdir -p artifacts
+           cp -r MLProject/mlruns ./artifacts/mlruns
+
+      - name: Commit and Push Artifacts
+        run: |
+           git config --global user.name 'github-actions'
+           git config --global user.email 'github-actions@github.com'
+           git add artifacts
+           git commit -m "Save MLflow artifacts"
+           git push
+        env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+      
