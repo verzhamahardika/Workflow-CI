@@ -71,7 +71,7 @@ jobs:
       - name: Install MLflow with Docker Support
         run: |
           pip install wheel setuptools
-          pip install "mlflow[extras]==2.24.1"
+          pip install "mlflow[extras]==2.22.0"
 
       - name: Build Docker Image with MLflow
         run: |
