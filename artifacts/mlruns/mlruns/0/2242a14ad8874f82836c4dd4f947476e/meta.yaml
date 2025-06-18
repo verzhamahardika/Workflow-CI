@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/0/2242a14ad8874f82836c4dd4f947476e/artifacts
+end_time: 1750223369316
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 2242a14ad8874f82836c4dd4f947476e
+run_name: sincere-trout-913
+run_uuid: 2242a14ad8874f82836c4dd4f947476e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750223369255
+status: 3
+tags: []
+user_id: runner
