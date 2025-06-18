@@ -5,8 +5,8 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 import mlflow
 import mlflow.sklearn
+from mlflow.models.signature import infer_signature  # ✅ FIXED
 import os
-import joblib
 
 # Ambil parameter dari CLI
 parser = argparse.ArgumentParser()
@@ -34,25 +34,23 @@ with mlflow.start_run(nested=True):
     model = RandomForestRegressor(random_state=42)
     model.fit(X_train, y_train)
 
-    
+    # Predict
     y_pred = model.predict(X_test)
-    signature = infer_signature(X_test, y_pred)
 
+    # Log model dengan signature
+    signature = infer_signature(X_test, y_pred)
     mlflow.sklearn.log_model(
-    sk_model=model,
-    artifact_path="model",
-    input_example=X_test.head(3),
-    signature=signature
+        sk_model=model,
+        artifact_path="model",
+        input_example=X_test.head(3),
+        signature=signature
     )
-    mse = mean_squared_error(y_test, y_pred)
-    r2 = r2_score(y_test, y_pred)
-    mae = mean_absolute_error(y_test, y_pred)
 
     # Logging metrics
-    mlflow.log_metric("test_mse", mse)
-    mlflow.log_metric("test_r2_score", r2)
-    mlflow.log_metric("test_mae", mae)
+    mlflow.log_metric("test_mse", mean_squared_error(y_test, y_pred))
+    mlflow.log_metric("test_r2_score", r2_score(y_test, y_pred))
+    mlflow.log_metric("test_mae", mean_absolute_error(y_test, y_pred))
 
-    # Print output
-    print(f"MSE: {mse}")
-    print(f"R² Score: {r2}")
+    # Output to console
+    print(f"MSE: {mean_squared_error(y_test, y_pred)}")
+    print(f"R² Score: {r2_score(y_test, y_pred)}")
