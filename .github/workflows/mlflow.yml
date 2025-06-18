@@ -12,9 +12,9 @@ on:
   workflow_dispatch:
 
 env:
-  DATA_PATH: MLProject/data_preprocessing/sales-data-preprocessed.csv
+  DATA_PATH: MLProject/Supplement-Sales-Weekly-Expanded_preprocessing.csv
   MLFLOW_EXPERIMENT_NAME: mlflow-salesforecasting
-  DOCKER_IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/salesforecasting-model
+  DOCKER_IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/sales_forecasting_image
 
 jobs:
   build:
