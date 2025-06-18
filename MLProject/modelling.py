@@ -5,6 +5,8 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 import mlflow
 import mlflow.sklearn
+import os
+import joblib
 
 # Ambil parameter dari CLI
 parser = argparse.ArgumentParser()
@@ -28,6 +30,11 @@ X_train, X_test, y_train, y_test = train_test_split(
 # Train model
 model = RandomForestRegressor(random_state=42)
 model.fit(X_train, y_train)
+os.makedirs("model", exist_ok=True)
+joblib.dump(model, "model/model.pkl")  # Simpan model secara manual
+
+# Logging secara eksplisit
+mlflow.log_artifact("model/model.pkl", artifact_path="model")
 
 # Evaluate
 y_pred = model.predict(X_test)
