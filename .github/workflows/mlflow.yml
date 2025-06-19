@@ -76,7 +76,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: trained-model
-          path: MLProject/output/rf_sales_regressor   # ← seluruh folder
+          path: MLProject/output/model   # ← seluruh folder
 
       # 8 ── login Docker Hub
       - name: Log in to Docker Hub
@@ -89,7 +89,7 @@ jobs:
       - name: Build Docker Image via MLflow
         run: |
           mlflow models build-docker \
-            --model-uri "runs:/$RUN_ID/rf_sales_regressor" \
+            --model-uri "runs:/$RUN_ID/model" \
             --name ${{ env.DOCKER_IMAGE_NAME }}
 
       # 10 ── push Docker image
