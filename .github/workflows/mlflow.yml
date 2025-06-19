@@ -68,7 +68,7 @@ jobs:
         run: |
           mlflow artifacts download \
             --run-id $RUN_ID \
-            --artifact-path rf_sales_regressor \
+            --artifact-path model \
             --dst-path MLProject/output
 
       # 7 ── upload artefak ke GitHub Actions
