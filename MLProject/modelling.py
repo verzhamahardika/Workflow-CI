@@ -8,7 +8,6 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 from mlflow.models.signature import infer_signature
 
-
 def main(data_path: str, test_size: float, random_state: int):
     # 1) ── Load data ───────────────────────────────
     df = pd.read_csv(data_path)
@@ -20,18 +19,21 @@ def main(data_path: str, test_size: float, random_state: int):
         X, y, test_size=test_size, random_state=random_state
     )
 
-    # 2) ── Start an MLflow run ─────────────────────
-    with mlflow.start_run():
+    # 2) ── Set local tracking URI ──────────────────
+    mlflow.set_tracking_uri("file:./mlruns")
+
+    # 3) ── Start an MLflow run ─────────────────────
+    with mlflow.start_run() as run:
         model = RandomForestRegressor(random_state=random_state)
         model.fit(X_train, y_train)
 
-        # 3) ── Predictions & metrics ────────────────
+        # 4) ── Predictions & metrics ────────────────
         y_pred = model.predict(X_test)
-        mse  = mean_squared_error(y_test, y_pred)
-        r2   = r2_score(y_test, y_pred)
-        mae  = mean_absolute_error(y_test, y_pred)
+        mse = mean_squared_error(y_test, y_pred)
+        r2 = r2_score(y_test, y_pred)
+        mae = mean_absolute_error(y_test, y_pred)
 
-        # 4) ── Log model & metrics explicitly ───────
+        # 5) ── Log model & metrics explicitly ───────
         signature = infer_signature(X_test, y_pred)
         mlflow.sklearn.log_model(
             sk_model=model,
@@ -41,10 +43,18 @@ def main(data_path: str, test_size: float, random_state: int):
         )
 
         mlflow.log_metric("test_mse", mse)
-        mlflow.log_metric("test_r2",  r2)
+        mlflow.log_metric("test_r2", r2)
         mlflow.log_metric("test_mae", mae)
 
-        # 5) ── Console feedback ─────────────────────
+        # 6) ── Print run info ───────────────────────
+        run_id = run.info.run_id
+        experiment_id = run.info.experiment_id
+        print(f"\nRun ID        : {run_id}")
+        print(f"Experiment ID : {experiment_id}")
+        print("Model successfully logged to MLflow.\n")
+        print(f"Serve with:\nmlflow models serve -m mlruns/{experiment_id}/{run_id}/artifacts/model -p 5000 --no-conda")
+
+        # 7) ── Feedback ─────────────────────────────
         print(f"MSE: {mse:.4f}")
         print(f"R² : {r2:.4f}")
         print(f"MAE: {mae:.4f}")
@@ -52,12 +62,9 @@ def main(data_path: str, test_size: float, random_state: int):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data_path",   type=str,   required=True,
-                        help="Path ke CSV hasil preprocessing")
-    parser.add_argument("--test_size",   type=float, default=0.2,
-                        help="Porsi data uji (0‑1)")
-    parser.add_argument("--random_state", type=int,   default=42,
-                        help="Seed supaya hasil re‑producible")
+    parser.add_argument("--data_path", type=str, required=True, help="Path ke CSV hasil preprocessing")
+    parser.add_argument("--test_size", type=float, default=0.2, help="Porsi data uji (0‑1)")
+    parser.add_argument("--random_state", type=int, default=42, help="Seed supaya hasil re‑producible")
     args = parser.parse_args()
 
     main(
