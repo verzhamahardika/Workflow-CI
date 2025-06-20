@@ -50,7 +50,7 @@ def main(data_path: str, test_size: float, random_state: int):
         print(f"MAE: {mae:.4f}")
 
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--data_path",   type=str,   required=True,
                         help="Path ke CSV hasil preprocessing")
