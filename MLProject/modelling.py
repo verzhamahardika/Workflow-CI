@@ -35,7 +35,7 @@ def main(data_path: str, test_size: float, random_state: int):
         signature = infer_signature(X_test, y_pred)
         mlflow.sklearn.log_model(
             sk_model=model,
-            artifact_path="rf_sales_regressor",
+            artifact_path="model",
             input_example=X_test.head(3),
             signature=signature,
         )
